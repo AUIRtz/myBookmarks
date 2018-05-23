@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hong">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>nav</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header></header>
+    <main>
+        <div class="wrapper" id="main"></div>        
+    </main>
+    <footer></footer>
+    <script>
+        var keys = {
+            '0':{0:'',1:'1',2:'2',3:'3',4:'4',5:'5',6:'6',7:'7',8:'8',9:'9',10:'0',11:'',12:'',13:'',14:'',length:15},
+            '1':{0:'',1:'q',2:'w',3:'e',4:'r',5:'t',6:'y',7:'u',8:'i',9:'o',10:'p',11:'',12:'',13:'phenix',length:14},
+            '2':{0:'',1:'a',2:'s',3:'d',4:'f',5:'g',6:'h',7:'j',8:'k',9:'l',10:'',11:'',12:'',13:'',length:14},
+            '3':{0:'',1:'',2:'',3:'',4:'',5:'',6:'',7:'',8:'',9:'',10:'',11:'',12:'',13:'',length:13},
+            '4':{0:'Ctrl',1:'Alt',2:'x',3:'Alt',4:'Ctrl',length:5},
+            'length':5
+        }
+        var hash = {
+            'q' :'qq.com',
+            'a' :'acfun.cn',
+            'b' :'baidu.com',
+            'w' :'weibo.com'
+        }
+        
+        var hashInLocalStorage = JSON.parse(localStorage.getItem('storage') || 'null')
+        if(hashInLocalStorage){
+            hash = hashInLocalStorage
+        }
+
+        for(var index =0;index < keys['length'];index = index+1){
+            var div1 = document.createElement('div')
+            main.appendChild(div1)
+            var row = keys[index]
+            for(var index2 =0;index2 < row['length'];index2 = index2+1){
+                var kbd1 = document.createElement('kbd')
+                div1.appendChild(kbd1)
+                kbd1.textContent = row[index2]
+                kbd1.className = row[index2]
+                var button1 = document.createElement('button')
+                kbd1.appendChild(button1)
+                button1.textContent = 'E'
+                button1.id = row[index2]
+                button1.onclick = function(click){
+                    var key = click.target.id
+                    var ask = prompt('Give me website!!')
+                    hash[key] = ask
+                    localStorage.setItem('storage', JSON.stringify(hash))
+                }
+            }
+        }
+        document.onkeypress = function(monitor){
+            var key = monitor['key']
+            var website = hash[key]
+            window.open('http://' +website, '_blank')
+        }
+    </script>
+</body>
+</html>
